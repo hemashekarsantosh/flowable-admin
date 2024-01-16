@@ -1,6 +1,7 @@
 import { Flex, Select, chakra, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
-import Menu from "./Menu";
+
+import CustomMenu from "./CustomMenu";
 
 
 export default function Header() {
@@ -31,7 +32,7 @@ export default function Header() {
                         <option value="option1">XPA</option>
                         <option value="option2">PFA</option>
                     </Select>
-                    <Menu/>
+                    <CustomMenu/>
                 </Flex>
             </chakra.header>
 
