@@ -7,11 +7,12 @@ import Tasks from './components/Tasks.jsx'
 import Instance from './components/Instance.jsx'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import DeploymentInfo from './components/DeploymentInfo.jsx'
+import Footer from './components/Footer.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ChakraProvider>
-   
+
       <Router>
         <Header />
         <Routes>
@@ -19,8 +20,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route exact path="/instance" element={<Instance />} />
           <Route exact path="/deploymentInfo" element={<DeploymentInfo />} />
         </Routes>
+        <Footer />
       </Router>
-     
+
     </ChakraProvider>
   </React.StrictMode>,
 )
