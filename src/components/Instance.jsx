@@ -66,7 +66,15 @@ export default function Instance() {
     );
   }
 
-  // Display the table with data
+  // Display the table with paginated data
+  const itemsPerPage = 2; // Adjust the number of items per page as needed
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+
+  const paginatedData = Array.from({ length: totalPages }, (_, index) =>
+    data.slice(index * itemsPerPage, (index + 1) * itemsPerPage)
+  );
+
+  // Display the table with paginated data
   return (
     <Flex w="full" p={50} alignItems="center" justifyContent="center">
       <Stack direction={{ base: "column" }} w="full" bg={{ sm: bg }} shadow="lg">
@@ -82,48 +90,53 @@ export default function Instance() {
           fontSize="sm"
           fontWeight="bold"
         >
-           <span>Process Instance</span>
-            <span>Created Date</span>
-            <span>Status</span>
-            <span>Current Activity</span>
-            <span>Process Definition</span>
+          <span>Process Instance</span>
+          <span>Created Date</span>
+          <span>Status</span>
+          <span>Current Activity</span>
+          <span>Process Definition</span>
+          <span>Action</span>
         </SimpleGrid>
-        {data.map((task, pid) => (
-          <Flex direction={{ base: "row", sm: "column" }} bg={bg} key={pid}>
-            <SimpleGrid
-              spacingY={3}
-              columns={{ base: 1, sm: 6 }}
-              w="full"
-              py={2}
-              px={10}
-              fontWeight="medium"
-            >
-              <span>{task.processInstanceId}</span>
-              <chakra.span
-                textOverflow="ellipsis"
-                overflow="hidden"
-                whiteSpace="nowrap"
-              >
-                {task.createdDate}
-              </chakra.span>
-              <span>{task.status}</span>
-              <span>{task.currentActivity}</span>
-              <span>{task.processDefinition}</span>
-              <span>
-                <HStack>
-                  <Button variant="solid" w="75" colorScheme="teal" size="sm">
-                    View
-                  </Button>
-                  <Button variant="solid" w="75" colorScheme="green" size="sm">
-                    Modify
-                  </Button>
-                  <Button variant="solid" w="75" colorScheme="red" size="sm">
-                    Reject
-                  </Button>
-                </HStack>
-              </span>
-            </SimpleGrid>
-          </Flex>
+        {paginatedData.map((page, pageIndex) => (
+          <React.Fragment key={pageIndex}>
+            {page.map((task, pid) => (
+              <Flex direction={{ base: "row", sm: "column" }} bg={bg} key={pid}>
+                <SimpleGrid
+                  spacingY={3}
+                  columns={{ base: 1, sm: 6 }}
+                  w="full"
+                  py={2}
+                  px={10}
+                  fontWeight="medium"
+                >
+                  <span>{task.processInstanceId}</span>
+                  <chakra.span
+                    textOverflow="ellipsis"
+                    overflow="hidden"
+                    whiteSpace="nowrap"
+                  >
+                    {task.createdDate}
+                  </chakra.span>
+                  <span>{task.status}</span>
+                  <span>{task.currentActivity}</span>
+                  <span>{task.processDefinition}</span>
+                  <span>
+                    <HStack>
+                      <Button variant="solid" w="75" colorScheme="teal" size="sm">
+                        View
+                      </Button>
+                      <Button variant="solid" w="75" colorScheme="green" size="sm">
+                        Modify
+                      </Button>
+                      <Button variant="solid" w="75" colorScheme="red" size="sm">
+                        Reject
+                      </Button>
+                    </HStack>
+                  </span>
+                </SimpleGrid>
+              </Flex>
+            ))}
+          </React.Fragment>
         ))}
       </Stack>
     </Flex>
